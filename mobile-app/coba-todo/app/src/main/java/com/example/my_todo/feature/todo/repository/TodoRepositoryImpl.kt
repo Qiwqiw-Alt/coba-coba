@@ -64,6 +64,10 @@ class TodoRepositoryImpl (
         }
     }
 
+    override suspend fun setError(errorMessage: String?) {
+        this.errorMessage = errorMessage
+    }
+
     override suspend fun getError(): String? {
         return errorMessage
     }
