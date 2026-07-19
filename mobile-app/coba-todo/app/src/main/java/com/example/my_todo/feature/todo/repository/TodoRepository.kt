@@ -9,5 +9,6 @@ interface TodoRepository {
     suspend fun getAllTasks(): List<Task>
     suspend fun deleteAllTasks()
     suspend fun getTaskById(id: String): Task?
+    suspend fun setError(errorMessage: String?)
     suspend fun getError(): String?
 }
