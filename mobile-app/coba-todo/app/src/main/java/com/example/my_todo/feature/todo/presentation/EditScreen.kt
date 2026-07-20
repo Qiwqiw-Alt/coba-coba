@@ -2,6 +2,7 @@ package com.example.my_todo.feature.todo.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import com.example.my_todo.model.Task
 fun EditContent(
     currentTask: Task? = null,
     onSaveTask: (String, String, Boolean) -> Unit,
+    onNavigateToDetail: (String) -> Unit,
     onBack: () -> Unit,
 ){
     var taskName by remember { mutableStateOf(currentTask?.taskName ?: "") }
@@ -124,18 +126,28 @@ fun EditContent(
             }
 
 
+            Row() {
+                Button(
+                    onClick = {
+                        if (taskName.isNotBlank()) {
+                            onSaveTask(taskName, taskDescription, taskStatus)
+                        }
+                    },
+                    modifier = Modifier.weight(1f),
+                    enabled = taskName.isNotBlank()
+                ) {
+                    Text("Save Task")
+                }
 
-            Button(
-                onClick = {
-                    if (taskName.isNotBlank()) {
-                        onSaveTask(taskName, taskDescription, taskStatus)
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = taskName.isNotBlank()
-            ) {
-                Text("Save Task")
+                Button(
+                    onClick = { onNavigateToDetail(currentTask?.id ?: "")},
+                    modifier = Modifier.weight(1f),
+                    enabled = true
+                ) {
+                    Text("Task Detail")
+                }
             }
+
         }
 
     }
@@ -146,6 +158,7 @@ fun EditContent(
 fun EditScreen(
     viewModel: TodoViewModel = hiltViewModel(),
     currentIdTask: String,
+    onNavigateToDetail: (String) -> Unit,
     onBack: () -> Unit,
 ){
     LaunchedEffect(currentIdTask) {
@@ -168,7 +181,8 @@ fun EditScreen(
                 viewModel.updateTask(editedTask)
                 onBack()
             },
-            onBack = onBack
+            onBack = onBack,
+            onNavigateToDetail = onNavigateToDetail
         )
     }
 }
