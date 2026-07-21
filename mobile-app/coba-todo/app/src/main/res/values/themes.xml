@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.My_todo" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MyTodo" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground">@android:color/white</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_icon</item>
+
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_splash_branding</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.MyTodo</item>
+    </style>
 </resources>
