@@ -1,5 +1,6 @@
 package com.example.my_todo.feature.todo.repository
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Update
@@ -7,6 +8,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import com.example.my_todo.model.Task
 
+@Dao
 interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertask(task: Task)
