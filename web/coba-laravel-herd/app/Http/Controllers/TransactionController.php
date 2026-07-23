@@ -72,6 +72,10 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->has('amount')) {
+            $cleanAmount = str_replace('.', '', $request->amount);
+            $request->merge(['amount' => $cleanAmount]);
+        }
         $validated = $request->validate([
             'transaction_date' => 'required|date',
             'amount' => 'required|numeric',
