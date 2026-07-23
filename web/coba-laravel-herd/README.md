@@ -1,58 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Finance Book 📊
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A clean and simple personal finance and transaction tracker built with **Laravel 13** and **Bootstrap**. This application helps users track their daily financial activities by recording incomes and outcomes (expenses) and providing an instant summary of their financial health.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+##  Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Financial Summary**: Real-time totals for **Total Income** and **Total Outcome** displayed at the top of the dashboard.
+- **Transaction History**: An interactive list of all transactions sorted by date and ID in descending order.
+- **Transaction Details**: Detailed view of each transaction, including date, amount, category, type (Income/Outcome), asset (cash, card, etc.), and custom description.
+- **CRUD Management**: Easily **Add**, **Edit**, **View**, and **Delete** individual transaction records.
+- **Bulk Delete**: A secure "Delete All Transactions" feature to easily reset your tracker.
+- **Robust Input Handling**: Validations for inputs and automatic formatting of transaction values.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+##  Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend Framework**: [Laravel 13](https://laravel.com/)
+- **Programming Language**: PHP >= 8.3
+- **Frontend Styling**: [Bootstrap](https://getbootstrap.com/)
+- **Database**: MySQL (Default, configurable in `.env`)
+- **Testing Framework**: [Pest PHP](https://pestphp.com/)
+- **Dev Utilities**: Laravel Boost & Laravel Pail
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+##  Prerequisites
 
-## Agentic Development
+Ensure you have the following installed on your local machine:
+- **PHP** >= 8.3
+- **Composer** (PHP Package Manager)
+- **MySQL** or any other compatible relational database
+- **Laravel Herd** (recommended) or PHP CLI for local serving
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
+##  Installation & Setup
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the Repository
+Download or clone the project directory to your web server workspace (e.g., Herd, XAMPP `htdocs`, etc.).
+
+### 2. Install Dependencies
+Run Composer to install all required PHP packages:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 3. Environment Configuration
+Create a `.env` file by copying the example file:
+```bash
+cp .env.example .env
+```
+Open `.env` and configure your database settings. For example, if you are using MySQL:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_finance_book
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+*(Make sure you create the `db_finance_book` database in your MySQL server before running the next step).*
 
-## Contributing
+### 4. Generate Application Key
+Generate a secure encryption key for the Laravel application:
+```bash
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. Run Migrations
+Run the migrations to set up the database tables (e.g., `transactions`):
+```bash
+php artisan migrate
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🖥️ Running the Application
 
-## Security Vulnerabilities
+### Using Laravel Herd (Recommended)
+If you are using **Laravel Herd**, the application is served automatically. 
+Simply access it in your browser at:
+`http://coba-laravel-herd.test`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Using Artisan Serve
+If you are not using Herd, you can start the Laravel built-in server:
+```bash
+php artisan serve
+```
+Then open `http://127.0.0.1:8000` in your web browser.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##  Running Tests
+
+The project is configured with **Pest PHP** for testing. Run the following command to execute the test suite:
+```bash
+php artisan test
+```
+or use the Composer alias:
+```bash
+composer run test
+```
+
+---
+
+##  Project Structure (Key Directories)
+
+- [`app/Models/Transaction.php`](file:///d:/xampp/htdocs/coba-coba/web/coba-laravel-herd/app/Models/Transaction.php) - The database model representing a financial transaction.
+- [`app/Http/Controllers/TransactionController.php`](file:///d:/xampp/htdocs/coba-coba/web/coba-laravel-herd/app/Http/Controllers/TransactionController.php) - Controller containing the CRUD logic, calculations, and redirection flows.
+- [`routes/web.php`](file:///d:/xampp/htdocs/coba-coba/web/coba-laravel-herd/routes/web.php) - Web routing configuration.
+- [`resources/views/transaction/`](file:///d:/xampp/htdocs/coba-coba/web/coba-laravel-herd/resources/views/transaction) - Blade templates for the application pages (`index.blade.php`, `create.blade.php`, `edit.blade.php`).
+- [`database/migrations/`](file:///d:/xampp/htdocs/coba-coba/web/coba-laravel-herd/database/migrations) - Database table schemas.
