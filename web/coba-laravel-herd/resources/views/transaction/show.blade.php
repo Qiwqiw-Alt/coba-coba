@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Transaction</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+
 </head>
-<body>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Finance Book</span>
+        </div>
+    </nav>
+    
+    <div class="container mb-5">
+        
+    </div>
     <div>
         <h1>Transaction: {{ $transaction->description ?? 'No Description' }}</h1>
     </div>
