@@ -110,10 +110,63 @@
 
                     <div class="d-flex gap-2 mt-3">
                         <button type="submit" name="submit" class="btn btn-outline-success">Save</button>
-                        <a href="{{ route ('transaction.show', $transaction->id)}}"><button type="button" class="btn btn-outline-secondary">Detail Task</button></a>
+                        <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#detailModal{{ $transaction->id }}">Detail</button>
                         <a href="{{ route ('transaction.index')}}"><button type="button" class="btn btn-outline-dark">Exit</button></a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailModal{{ $transaction->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $transaction->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0">
+
+                <div class="modal-header bg-white border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold text-dark" id="detailModalLabel{{ $transaction->id }}">Transaction Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="fw-bold mb-0 text-dark">{{ $transaction->description ?? 'No Description' }}</h4>
+                        <span class="badge {{ $transaction->type == 'Income' ? 'bg-success' : 'bg-danger'}}">
+                            {{ $transaction->type}}
+                        </span>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 mb-3">
+                        <small class="text-muted d-block mb-1">Amount</small>
+                        <h3 class="fw-bold {{ $transaction->type == 'Income' ? 'text-success' : 'text-danger'}} mb-0">
+                            {{ $transaction->type == 'Income' ? '+' : '-'}} Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                        </h3>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <small class="text-muted d-block">Transaction Date</small>
+                            <span class="fw-semibold text-dark">{{ $transaction->transaction_date}}</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Category</small>
+                            <span class="badge bg-secondary text-capitalize">{{ $transaction->category }}</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Asset</small>
+                            <span class="fw-semibold text-capitalize text-dark">{{ $transaction->asset }}</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Transaction Id</small>
+                            <span class="fw-semibold text-muted">#{{ $transaction->id }}</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer bg-light border-top-0">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="{{ route('transaction.edit', $transaction->id)}}" class="btn btn-outline-warning text-white">Edit</a>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

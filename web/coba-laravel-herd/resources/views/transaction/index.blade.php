@@ -96,18 +96,93 @@
                                     </td>
                                     <td class="align-middle">
                                         <div class="d-flex align-items-center gap-2">
-                                            <a href="{{ route('transaction.show', $trx->id) }}" class="btn btn-sm btn-outline-info text-white">Detail</a>
+                                            <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#detailModal{{ $trx->id }}">Detail</button>
                                             <a href="{{ route('transaction.edit', $trx->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
 
-                                            <form action="{{ route('transaction.destroy', $trx->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                                            </form>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $trx->id }}">
+                                                Delete
+                                            </button>
                                         </div>
-                                        
-                                    </td>
 
+                                        <div class="modal fade" id="detailModal{{ $trx->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $trx->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content border-0">
+
+                                                    <div class="modal-header bg-white border-bottom-0 pb-0">
+                                                        <h5 class="modal-title fw-bold text-dark" id="detailModalLabel{{ $trx->id }}">Transaction Detail</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body p-4">
+                                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                                            <h4 class="fw-bold mb-0 text-dark">{{ $trx->description ?? 'No Description' }}</h4>
+                                                            <span class="badge {{ $trx->type == 'Income' ? 'bg-success' : 'bg-danger'}}">
+                                                                {{ $trx->type}}
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="p-3 bg-light rounded-3 mb-3">
+                                                            <small class="text-muted d-block mb-1">Amount</small>
+                                                            <h3 class="fw-bold {{ $trx->type == 'Income' ? 'text-success' : 'text-danger'}} mb-0">
+                                                                {{ $trx->type == 'Income' ? '+' : '-'}} Rp {{ number_format($trx->amount, 0, ',', '.') }}
+                                                            </h3>
+                                                        </div>
+
+                                                        <div class="row g-3">
+                                                            <div class="col-6">
+                                                                <small class="text-muted d-block">Transaction Date</small>
+                                                                <span class="fw-semibold text-dark">{{ $trx->transaction_date}}</span>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <small class="text-muted d-block">Category</small>
+                                                                <span class="badge bg-secondary text-capitalize">{{ $trx->category }}</span>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <small class="text-muted d-block">Asset</small>
+                                                                <span class="fw-semibold text-capitalize text-dark">{{ $trx->asset }}</span>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <small class="text-muted d-block">Transaction Id</small>
+                                                                <span class="fw-semibold text-muted">#{{ $trx->id }}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer bg-light border-top-0">
+                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <a href="{{ route('transaction.edit', $trx->id)}}" class="btn btn-outline-warning text-white">Edit</a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="modal fade" id="deleteModal{{ $trx->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $trx->id}}">Confirm Deletion</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start py-4">
+                                                        Are you sure you want to delete transaction <strong>"{{ $trx->description ?? 'this item' }}"</strong>?
+                                                        <p class="text-muted small mb-0 mt-2">This action cannot be undone.</p>
+                                                    </div>
+                                                    <div class="modal-footer bg-light gap-2">
+                                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        
+                                                        <form action="{{ route('transaction.destroy', $trx->id) }}" method="POST" class="m-0">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-outline-danger">Yes, Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                             <tr>
@@ -122,10 +197,7 @@
                 </div>
             </div>
         </div>
-    
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
